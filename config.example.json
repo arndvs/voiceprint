@@ -1,0 +1,21 @@
+{
+  "source_dir": "./source",
+  "skills_dir": "./skills",
+  "transcription": {
+    "model": "turbo",
+    "diarization": false
+  },
+  "extraction": {
+    "max_excerpts": 40,
+    "excerpt_min_chars": 40,
+    "excerpt_max_chars": 400,
+    "samples_per_source": 12,
+    "context_lines": 3
+  },
+  "analysis": {
+    "max_excerpt_chars": 2400
+  },
+  "session": {
+    "max_items_per_session": 3
+  }
+}
