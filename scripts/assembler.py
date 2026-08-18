@@ -5,11 +5,13 @@ PLACEHOLDER_RE = re.compile(r"\{\{[^}]+\}\}")
 
 
 def render_template(text: str, slug: str, name: str) -> str:
+    name = name or slug.replace("-", " ").title()
     return (
         text.replace("{{comedian-slug}}", slug)
         .replace("{{slug}}", slug)
         .replace("{{Comedian Name}}", name)
         .replace("{{comedian-name}}", slug)
+        .replace("{{name}}", name)
     )
 
 
@@ -30,12 +32,13 @@ def assemble_folder(target: Path, slug: str, name: str = None) -> dict:
         if rendered != original:
             f.write_text(rendered, encoding="utf-8")
             replaced_files += 1
-    analysis_template = target / "comedian-slug-style-analysis.md"
-    if analysis_template.exists():
+    for f in list(target.glob("*-style-analysis.md")):
+        if f.name == f"{slug}-style-analysis.md":
+            continue
         analysis_target = target / f"{slug}-style-analysis.md"
-        analysis_template.rename(analysis_target)
-        if str(analysis_target.name) in remaining:
-            remaining[str(analysis_target.name)] = remaining.pop(str(analysis_template.name))
+        f.rename(analysis_target)
+        if f.name in remaining:
+            remaining[str(analysis_target.name)] = remaining.pop(f.name)
     return {"replaced_files": replaced_files, "remaining_placeholders": remaining}
 
 
