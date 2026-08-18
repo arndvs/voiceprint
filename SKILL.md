@@ -25,7 +25,7 @@ Each work unit = **one voice**. Input = a directory of raw source files under `s
 ## First-Time Setup
 
 1. `python -m venv .venv && source .venv/bin/activate && pip install -r scripts/requirements.txt`
-2. `cp config.example.json config.json` — adjust `source_dir`, `skills_dir`, and settings.
+2. `cp config.example.json config.json` — adjust `template_type` (`comedian` | `author` | `personal`), `source_dir`, `skills_dir`, and settings.
 3. Run `python -m scripts.preflight --config config.json` to verify the environment.
 
 No external API keys are required — the analysis step runs in the agent, not via a separate service. (Transcription needs Whisper; see `scripts/INSTALL.md`.)
@@ -34,11 +34,12 @@ No external API keys are required — the analysis step runs in the agent, not v
 
 ```
 voiceprint/
-├── config.example.json
+├── config.example.json      # template_type selects the scaffold (comedian/author/personal)
+├── templates.registry.json  # template_type → template dir + output contract
 ├── pyproject.toml
 ├── scripts/
 │   ├── __init__.py
-│   ├── shared_utils.py       # env/config/validation
+│   ├── shared_utils.py       # env/config/validation + templates registry
 │   ├── state_store.py        # JSON queue of voices
 │   ├── session_logger.py     # JSONL audit trail
 │   ├── preflight.py          # Phase 0 environment check
@@ -46,7 +47,10 @@ voiceprint/
 │   ├── extractor.py          # short-excerpt extraction + copyright flagging
 │   ├── assembler.py          # placeholder replacement + output validation
 │   └── run_pipeline.py       # main orchestrator
-├── templates/                # (coming) per-type scaffolds: comedian/, author/, personal/
+├── templates/
+│   ├── comedian/             # SKILL.md + <slug>-style-analysis.md
+│   ├── author/               # same two-file shape, writing (not comedy) vocabulary
+│   └── personal/             # personal-register voice
 ├── writeprint/
 │   └── writeprint-generator.md  # the analysis prompt used in step 3
 ├── references/
@@ -55,11 +59,23 @@ voiceprint/
 └── source/                   # raw material — gitignored (never commit full works)
 ```
 
+## Template Types
+
+The scaffold for `skills/<slug>/` comes from `templates/<type>/`, chosen by the
+`template_type` key in `config.json`. The mapping `template_type → template dir`
+(and the expected output shape) lives in `templates.registry.json`.
+
+- `comedian` — stand-up voice: comedic architecture, bit structure, callback tags.
+- `author` — prose voice: writing architecture, rhetorical moves, essay structure.
+- `personal` — your own (or a founder's) register: signature moves, subjects/energy, boundaries.
+
+Every type emits the same two-file contract: `SKILL.md` + `<slug>-style-analysis.md`.
+
 ## The Two-Part Output
 
 Every generated skill in `skills/<slug>/` has two files:
 
-- **`<slug>-analysis.md`** — the deep source analysis: tone, architecture, mechanics, rhetorical moves, fingerprints, themes, anti-patterns, excerpt index.
+- **`<slug>-style-analysis.md`** — the deep source analysis: tone, architecture, mechanics, rhetorical moves, fingerprints, themes, anti-patterns, excerpt index.
 - **`SKILL.md`** — the concise, loadable version agents apply immediately.
 
 Both carry `skill_version: 1` frontmatter.

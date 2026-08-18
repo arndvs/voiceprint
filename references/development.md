@@ -9,7 +9,7 @@ preflight → scaffold → ingest → extract → analyze (agent) → assemble �
 ```
 
 - `preflight` — environment/config checks
-- `scaffold` — copies `skills/_template/` to `skills/<slug>/`
+- `scaffold` — copies `templates/<type>/` to `skills/<slug>/` (type from config `template_type`, resolved via `templates.registry.json`)
 - `ingest` — lists raw source files in `source/<slug>/`
 - `extract` — samples raw text, picks short excerpts, flags copyright risks
 - `analyze` — **agent**: runs the writeprint generator, fills analysis + SKILL.md
