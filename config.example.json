@@ -1,6 +1,7 @@
 {
   "source_dir": "./source",
   "skills_dir": "./skills",
+  "template_type": "comedian",
   "transcription": {
     "model": "turbo",
     "diarization": false
