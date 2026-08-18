@@ -5,18 +5,18 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-from pipeline.scripts.assembler import assemble_folder, verify_output
-from pipeline.scripts.extractor import Extractor
-from pipeline.scripts.session_logger import SessionLogger
-from pipeline.scripts.shared_utils import (
+from scripts.assembler import assemble_folder, verify_output
+from scripts.extractor import Extractor
+from scripts.session_logger import SessionLogger
+from scripts.shared_utils import (
     REPO_ROOT,
     ensure_dir,
     load_config,
     validate_config,
     sanitize_slug,
 )
-from pipeline.scripts.state_store import JsonStateStore
-from pipeline.scripts.transcribe import Transcriber, collect_media
+from scripts.state_store import JsonStateStore
+from scripts.transcribe import Transcriber, collect_media
 
 PHASES = ["scaffold", "ingest", "transcribe", "extract", "analyze", "assemble", "verify"]
 
@@ -29,7 +29,7 @@ class Pipeline:
         self.source_root = REPO_ROOT / config.get("source_dir", "./source")
         self.skills_root = REPO_ROOT / config.get("skills_dir", "./skills")
         self.template_dir = self.skills_root / "_template"
-        self.run_dir = Path(config.get("run_dir", "./pipeline/.run"))
+        self.run_dir = Path(config.get("run_dir", "./.run"))
 
     def _resolve_item(self, slug: str) -> dict:
         slug = sanitize_slug(slug)

@@ -15,7 +15,7 @@ The comedian-voices repo is public and MIT-licensed. It is a **style-analysis co
 
 The raw material the user provides (`source/<slug>/`) is **gitignored** — it stays local. What gets committed is the output skill, which quotes only scattered structural micro-examples.
 
-The extractor (`pipeline/scripts/extractor.py`) refuses to generate anything from a file that looks like a full work:
+The extractor (`scripts/extractor.py`) refuses to generate anything from a file that looks like a full work:
 
 - Media files (audio/video) — flagged, must be transcribed to text first
 - Front matter with copyright/ISBN block — flagged as a published book

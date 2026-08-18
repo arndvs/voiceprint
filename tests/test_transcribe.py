@@ -6,7 +6,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from pipeline.scripts.transcribe import (  # noqa: E402
+from scripts.transcribe import (  # noqa: E402
     Transcriber,
     _clean_name,
     _format_ts,

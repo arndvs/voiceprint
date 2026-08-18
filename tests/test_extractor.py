@@ -3,7 +3,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from pipeline.scripts.extractor import Extractor, TranscriptSegment, TS_RE  # noqa: E402
+from scripts.extractor import Extractor, TranscriptSegment, TS_RE  # noqa: E402
 
 CONFIG = {
     "extraction": {

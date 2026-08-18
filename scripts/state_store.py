@@ -4,7 +4,7 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from pipeline.scripts.shared_utils import NOTE_MAX_LEN
+from scripts.shared_utils import NOTE_MAX_LEN
 
 STATUS_FLOW = ["queued", "scaffolded", "extracted", "analyzed", "assembled"]
 FAILED = "failed"

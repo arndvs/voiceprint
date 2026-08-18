@@ -6,7 +6,7 @@ from pathlib import Path
 
 NOTE_MAX_LEN = 1200
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 SLUG_RE = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
 

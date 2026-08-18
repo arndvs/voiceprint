@@ -1,0 +1,31 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Agent / local
+*.local.md
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Raw source material (books, transcripts, media) — stay local, never commit
+source/
+
+# Pipeline runtime state
+.run/
+logs/
+state.json
+
+# Py
+__pycache__/
+.venv/
+*.pyc
+
+# Test cache
+.pytest_cache/

@@ -2,7 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from pipeline.scripts.shared_utils import (
+from scripts.shared_utils import (
     REPO_ROOT,
     ensure_dir,
     load_config,
@@ -47,7 +47,7 @@ def run_preflight(config_path: str) -> bool:
     else:
         errors.append("writeprint/writeprint-generator.md missing — needed for analysis phase")
 
-    import pipeline.scripts.shared_utils as su
+    import scripts.shared_utils as su
 
     _ = su
 

@@ -1,4 +1,4 @@
 """Run pipeline entry points from the repo root:
-    python -m pipeline.scripts.preflight --config pipeline/config.example.json
-    python -m pipeline.scripts.run_pipeline --config pipeline/config.example.json --item <slug>
+    python -m scripts.preflight --config config.example.json
+    python -m scripts.run_pipeline --config config.example.json --item <slug>
 """

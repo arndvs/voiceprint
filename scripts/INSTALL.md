@@ -1,6 +1,6 @@
 # Transcribe — Installation
 
-`pipeline/scripts/transcribe.py` turns audio/video into timestamped text transcripts. It uses OpenAI's Whisper for transcription and (optionally) pyannote for speaker diarization.
+`scripts/transcribe.py` turns audio/video into timestamped text transcripts. It uses OpenAI's Whisper for transcription and (optionally) pyannote for speaker diarization.
 
 ## Requirements
 
@@ -28,7 +28,7 @@
 2. Install the transcriber deps:
 
    ```bash
-   pip install -r pipeline/scripts/requirements.txt
+   pip install -r scripts/requirements.txt
    ```
 
    Whisper downloads its model on first run (several GB for `turbo`), so expect a delay.
@@ -36,9 +36,9 @@
 ## Usage
 
 ```bash
-python -m pipeline.scripts.transcribe --dry-run                    # list media, don't transcribe
-python -m pipeline.scripts.transcribe                              # transcribe ./input → ./output
-python -m pipeline.scripts.transcribe source/jerry-seinfield/raw \
+python -m scripts.transcribe --dry-run                    # list media, don't transcribe
+python -m scripts.transcribe                              # transcribe ./input → ./output
+python -m scripts.transcribe source/jerry-seinfield/raw \
     --output-dir source/jerry-seinfield/transcripts
 ```
 

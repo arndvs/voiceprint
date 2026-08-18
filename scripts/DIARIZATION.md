@@ -23,7 +23,7 @@ Optional speaker labeling via pyannote. Only needed when the source has multiple
 ## Run
 
 ```bash
-python -m pipeline.scripts.transcribe --diarize
+python -m scripts.transcribe --diarize
 ```
 
 The pipeline downloads the pyannote models on first use (~1.1 GB). If diarization fails at runtime, transcription continues without speaker labels (unless `--no-fallback`).

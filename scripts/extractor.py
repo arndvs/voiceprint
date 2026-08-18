@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from pipeline.scripts.shared_utils import NOTE_MAX_LEN, ensure_dir, resolve_path
+from scripts.shared_utils import NOTE_MAX_LEN, ensure_dir, resolve_path
 
 FULL_WORK_THRESHOLD_CHARS = 120_000
 PAGE_MARKER_NOISE = 0.2
