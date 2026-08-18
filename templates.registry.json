@@ -1,0 +1,20 @@
+{
+  "templates_dir": "templates",
+  "types": {
+    "comedian": {
+      "dir": "comedian",
+      "analysis_suffix": "style-analysis",
+      "section_header": "Comedic / writing architecture"
+    },
+    "author": {
+      "dir": "author",
+      "analysis_suffix": "style-analysis",
+      "section_header": "Writing architecture"
+    },
+    "personal": {
+      "dir": "personal",
+      "analysis_suffix": "style-analysis",
+      "section_header": "Writing architecture"
+    }
+  }
+}
