@@ -1,0 +1,12 @@
+# Core transcription
+openai-whisper>=1.6
+
+# PyTorch — pick the variant for your platform:
+#   NVIDIA:   pip install torch==2.2.1+cu121
+#   AMD:      pip install torch==2.2.1+rocm5.7  (Linux)
+#   Apple:    pip install torch==2.2.1          (MPS build)
+# Or install the latest from https://pytorch.org before running this file.
+torch
+
+# Optional — only needed if --diarize is used
+# pyannote.audio==3.1.0
