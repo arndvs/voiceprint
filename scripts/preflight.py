@@ -7,6 +7,7 @@ from scripts.shared_utils import (
     ensure_dir,
     load_config,
     resolve_path,
+    resolve_template_dir,
     sanitize_slug,
     validate_config,
 )
@@ -26,12 +27,11 @@ def run_preflight(config_path: str) -> bool:
     except (ValueError, FileNotFoundError) as e:
         errors.append(str(e))
 
-    template_skill = REPO_ROOT / "skills" / "_template" / "SKILL.md"
-    template_analysis = REPO_ROOT / "skills" / "_template" / "comedian-slug-style-analysis.md"
-    if template_skill.exists() and template_analysis.exists():
-        print("  [ok] Template present (SKILL.md + style-analysis.md)")
-    else:
-        errors.append("Template missing in skills/_template/ (need SKILL.md + comedian-slug-style-analysis.md)")
+    try:
+        template_dir = resolve_template_dir(config.get("template_type", ""))
+        print(f"  [ok] Template present: {template_dir.name}/ (template_type={config.get('template_type')})")
+    except (ValueError, FileNotFoundError) as e:
+        errors.append(str(e))
 
     source_dir = resolve_path(config.get("source_dir", "./source"), REPO_ROOT)
     ensure_dir(source_dir)
@@ -62,7 +62,7 @@ def run_preflight(config_path: str) -> bool:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Comedian voices pipeline preflight")
+    parser = argparse.ArgumentParser(description="Voice pipeline preflight")
     parser.add_argument("--config", required=True, help="Path to config.json")
     args = parser.parse_args()
     sys.exit(0 if run_preflight(args.config) else 1)

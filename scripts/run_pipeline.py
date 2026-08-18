@@ -12,6 +12,7 @@ from scripts.shared_utils import (
     REPO_ROOT,
     ensure_dir,
     load_config,
+    resolve_template_dir,
     validate_config,
     sanitize_slug,
 )
@@ -28,7 +29,8 @@ class Pipeline:
         self.logger = logger
         self.source_root = REPO_ROOT / config.get("source_dir", "./source")
         self.skills_root = REPO_ROOT / config.get("skills_dir", "./skills")
-        self.template_dir = self.skills_root / "_template"
+        self.template_type = config["template_type"]
+        self.template_dir = resolve_template_dir(self.template_type)
         self.run_dir = Path(config.get("run_dir", "./.run"))
 
     def _resolve_item(self, slug: str) -> dict:
@@ -192,16 +194,16 @@ class Pipeline:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Comedian voice generation pipeline")
+    parser = argparse.ArgumentParser(description="Voice generation pipeline")
     parser.add_argument("--config", required=True, help="Path to config.json")
-    parser.add_argument("--item", help="Comedian slug (source dir name)")
+    parser.add_argument("--item", help="Slug (source dir name)")
     parser.add_argument("--only", choices=PHASES, help="Run only this phase")
     args = parser.parse_args()
 
     config = load_config(args.config)
     validate_config(config)
 
-    run_dir = Path(config.get("run_dir", "./pipeline"))
+    run_dir = Path(config.get("run_dir", "./.run"))
     ensure_dir(run_dir / "logs")
     state = JsonStateStore(str((run_dir / "state.json").resolve()))
 
@@ -211,6 +213,8 @@ def main() -> int:
             ok = pipe.run_item(args.item, only=args.only)
         else:
             ok = all(pipe.run_item(i["id"]) for i in state.get_pending_items())
+
+    return 0 if ok else 1
 
 if __name__ == "__main__":
     sys.exit(main())
